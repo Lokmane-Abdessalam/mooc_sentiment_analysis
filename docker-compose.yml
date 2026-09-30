@@ -5,6 +5,7 @@ services:
   # =========================
   namenode:
     image: apache/hadoop:3.4.1
+    user: "root"
     container_name: mooc-namenode
     hostname: namenode
     command: ["/opt/hadoop/start-namenode.sh"]
@@ -31,6 +32,7 @@ services:
   # =========================
   datanode:
     image: apache/hadoop:3.4.1
+    user: "root"
     container_name: mooc-datanode
     hostname: datanode
     command: ["hdfs", "datanode"]
@@ -58,6 +60,7 @@ services:
   # =========================
   datanode-2:
     image: apache/hadoop:3.4.1
+    user: "root"
     container_name: mooc-datanode-2
     hostname: datanode-2
     command: ["hdfs", "datanode"]
@@ -165,12 +168,14 @@ services:
 
     image: mooc-jupyter:spark-4.2.0
     container_name: mooc-jupyter
-
+    user: "root"
     ports:
       - "8888:8888"
 
     environment:
       JUPYTER_ENABLE_LAB: "yes"
+      CHOWN_HOME: "yes"           # <-- Tell startup script to fix ownership
+      CHOWN_HOME_OPTS: "-R"       # <-- Apply recursively to all files
 
     volumes:
       - ./notebooks:/home/jovyan/work/notebooks:Z
@@ -198,13 +203,6 @@ networks:
 # =========================
 volumes:
   hdfs_namenode_data:
-    driver: local
-
   hdfs_datanode_data:
-    driver: local
-
   hdfs_datanode_2_data:
-    driver: local
-
   jupyter_pip_cache:
-    driver: local

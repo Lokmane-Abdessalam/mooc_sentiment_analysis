@@ -131,7 +131,11 @@ mkdir -p data/raw hdfs/namenode hdfs/datanode-1 hdfs/datanode-2 models
 Build the custom Jupyter image (which installs NLP dependencies) and start the Hadoop/Spark cluster in detached mode.
 
 ```bash
-docker compose up -d --build
+docker compose up 
+
+chmod +x setup_data.sh
+./setup_data.sh
+
 
 ```
 
