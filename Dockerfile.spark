@@ -1,0 +1,32 @@
+FROM apache/spark:4.2.0
+
+USER root
+
+# Install Python 3.11
+RUN apt-get update && \
+    apt-get install -y python3.11 python3.11-dev python3-pip && \
+    rm -rf /var/lib/apt/lists/*
+
+# Make Python 3.11 the default Python
+RUN ln -sf /usr/bin/python3.11 /usr/local/bin/python3 && \
+    ln -sf /usr/bin/python3.11 /usr/local/bin/python
+
+# Upgrade pip
+RUN python3.11 -m pip install --no-cache-dir --upgrade pip
+RUN pip install  translators emot bs4 nltk langdetect
+
+RUN python -c "import nltk; [nltk.download(p, download_dir='/usr/share/nltk_data') for p in ['stopwords', 'punkt_tab', 'punkt', 'wordnet']]"
+
+
+# Python packages used by Spark jobs
+# RUN python3.11 -m pip install --no-cache-dir \
+#     langdetect \
+#     argostranslate \
+#     pandas \
+#     numpy \
+#     scikit-learn
+
+ENV PYSPARK_PYTHON=/usr/bin/python3.11
+ENV PYSPARK_DRIVER_PYTHON=/usr/bin/python3.11
+
+USER spark

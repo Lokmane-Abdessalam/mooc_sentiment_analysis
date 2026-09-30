@@ -1,0 +1,15 @@
+FROM jupyter/pyspark-notebook:latest
+
+USER root
+
+COPY jupyter_install-spark.sh /tmp/jupyter_install-spark.sh
+
+RUN chmod +x /tmp/jupyter_install-spark.sh && \
+    /tmp/jupyter_install-spark.sh && \
+    rm /tmp/jupyter_install-spark.sh
+
+ENV SPARK_HOME=/usr/local/spark
+ENV PATH=${SPARK_HOME}/bin:${SPARK_HOME}/sbin:${PATH}
+ENV PYTHONPATH=${SPARK_HOME}/python:${SPARK_HOME}/python/lib/py4j-0.10.9.9-src.zip
+
+USER jovyan
