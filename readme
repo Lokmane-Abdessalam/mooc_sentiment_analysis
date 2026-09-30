@@ -1,4 +1,3 @@
-
 # MOOC Big Data Pipeline: Distributed Sentiment Analysis
 
 ## Overview
@@ -176,4 +175,3 @@ Inside JupyterLab, create or open the following notebooks and execute them seque
 | **View Spark Master Logs** | `docker compose logs spark-master` |
 | **List HDFS Raw Files** | `docker exec -it mooc-namenode hdfs dfs -ls -h /data/mooc/raw` |
 | **Monitor Container Resources** | `docker stats --format "table {{.Container}}\t{{.CPUPerc}}\t{{.MemUsage}}"` |
-
