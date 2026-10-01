@@ -109,7 +109,7 @@ On a completely fresh machine, you will need:
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository_url> mooc-bigdata
+git clone https://github.com/Lokmane-Abdessalam/mooc_sentiment_analysis mooc-bigdata
 cd mooc-bigdata
 
 ```
